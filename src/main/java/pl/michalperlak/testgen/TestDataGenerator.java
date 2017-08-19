@@ -1,24 +1,22 @@
 package pl.michalperlak.testgen;
 
-import choco.Problem;
-import choco.Solver;
 import pl.michalperlak.testgen.model.Argument;
 import pl.michalperlak.testgen.model.Method;
-import pl.michalperlak.testgen.model.PathCondition;
+import pl.michalperlak.testgen.jpf.PathConditionImpl;
 import pl.michalperlak.testgen.model.TestData;
 
 import java.util.*;
 
 public class TestDataGenerator {
-    public List<TestData> processMethod(Method method, Collection<PathCondition> conditions) {
+    public List<TestData> processMethod(Method method, Collection<PathConditionImpl> conditions) {
         List<TestData> testData = new ArrayList<>();
-        for (PathCondition condition : conditions) {
+        for (PathConditionImpl condition : conditions) {
             testData.add(new TestData(method, solveCondition(method, condition)));
         }
         return testData;
     }
 
-    private Map<Argument, String> solveCondition(Method method, PathCondition condition) {
+    private Map<Argument, String> solveCondition(Method method, PathConditionImpl condition) {
         return null; //TODO implement
     }
 }

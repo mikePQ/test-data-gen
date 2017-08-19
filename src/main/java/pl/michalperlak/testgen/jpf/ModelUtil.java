@@ -28,6 +28,7 @@ public class ModelUtil {
 
         List<Argument> arguments = new ArrayList<>();
         for (LocalVarInfo info : argumentLocalVars) {
+            if (info == null) continue;
             arguments.add(createArgument(info));
         }
         return arguments;

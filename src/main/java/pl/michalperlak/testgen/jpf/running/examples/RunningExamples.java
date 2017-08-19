@@ -5,8 +5,9 @@ import gov.nasa.jpf.JPF;
 import gov.nasa.jpf.symbc.SymbolicListener;
 import pl.michalperlak.testgen.TestDataGenerator;
 import pl.michalperlak.testgen.jpf.listeners.PathConditionListener;
+import pl.michalperlak.testgen.model.IPathCondition;
 import pl.michalperlak.testgen.model.Method;
-import pl.michalperlak.testgen.model.PathCondition;
+import pl.michalperlak.testgen.jpf.PathConditionImpl;
 
 import java.nio.file.Paths;
 import java.util.Set;
@@ -28,8 +29,10 @@ public class RunningExamples {
         jpf.addListener(pathConditionListener);
         jpf.run();
 
-        ConcurrentMap<Method, Set<PathCondition>> conditions = pathConditionListener.getConditions();
+        ConcurrentMap<Method, Set<IPathCondition>> conditions = pathConditionListener.getConditions();
         System.out.println("%%%%%" + conditions);
+
+        conditions.values().forEach(s -> s.forEach(IPathCondition::solve));
 
         TestDataGenerator testDataGenerator = new TestDataGenerator();
 //        testDataGenerator.processMethod()
