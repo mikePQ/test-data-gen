@@ -8,8 +8,12 @@ import pl.michalperlak.testgen.jpf.listeners.PathConditionListener;
 import pl.michalperlak.testgen.model.IPathCondition;
 import pl.michalperlak.testgen.model.Method;
 import pl.michalperlak.testgen.jpf.PathConditionImpl;
+import pl.michalperlak.testgen.model.TestData;
 
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 
@@ -32,10 +36,20 @@ public class RunningExamples {
         ConcurrentMap<Method, Set<IPathCondition>> conditions = pathConditionListener.getConditions();
         System.out.println("%%%%%" + conditions);
 
-        conditions.values().forEach(s -> s.forEach(IPathCondition::solve));
+        Optional<Method> testedMethod = conditions
+                .keySet()
+                .stream()
+                .filter(method -> "testMe2".equals(method.getShortName()))
+                .findFirst();
+
+        if (!testedMethod.isPresent()) {
+            return;
+        }
 
         TestDataGenerator testDataGenerator = new TestDataGenerator();
-//        testDataGenerator.processMethod()
+        List<TestData> testData = testDataGenerator.processMethod(conditions.getOrDefault(testedMethod.get(), Collections.emptySet()));
+
+        System.out.println("$$$$$$$$$$$$$$ " + testData);
     }
 
 //    private static void runWithRunner() throws URISyntaxException {

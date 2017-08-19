@@ -1,22 +1,32 @@
 package pl.michalperlak.testgen;
 
-import pl.michalperlak.testgen.model.Argument;
-import pl.michalperlak.testgen.model.Method;
-import pl.michalperlak.testgen.jpf.PathConditionImpl;
+import pl.michalperlak.testgen.model.IPathCondition;
 import pl.michalperlak.testgen.model.TestData;
 
 import java.util.*;
 
 public class TestDataGenerator {
-    public List<TestData> processMethod(Method method, Collection<PathConditionImpl> conditions) {
-        List<TestData> testData = new ArrayList<>();
-        for (PathConditionImpl condition : conditions) {
-            testData.add(new TestData(method, solveCondition(method, condition)));
+    public List<TestData> processMethod(Collection<IPathCondition> conditions) {
+        Set<TestData> testData = new HashSet<>();
+        for (IPathCondition condition : conditions) {
+            if (!overlaps(conditions, condition)) {
+                testData.add(condition.solve());
+            }
         }
-        return testData;
+
+        return new ArrayList<>(testData);
     }
 
-    private Map<Argument, String> solveCondition(Method method, PathConditionImpl condition) {
-        return null; //TODO implement
+    private static boolean overlaps(Iterable<IPathCondition> otherConditions, IPathCondition condition) {
+        for (IPathCondition condition1 : otherConditions) {
+            if (condition.equals(condition1)) {
+                continue;
+            }
+
+            if (condition1.overlaps(condition)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

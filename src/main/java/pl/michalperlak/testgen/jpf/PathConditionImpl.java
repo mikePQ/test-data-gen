@@ -30,6 +30,32 @@ public class PathConditionImpl implements IPathCondition {
     }
 
     @Override
+    public boolean overlaps(IPathCondition condition) {
+        if (condition instanceof PathConditionImpl) {
+            PathConditionImpl pathCondition = (PathConditionImpl) condition;
+            return this.condition.hasConstraint(pathCondition.condition.header);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PathConditionImpl that = (PathConditionImpl) o;
+
+        return method.equals(that.method) && condition.equals(that.condition);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = method.hashCode();
+        result = 31 * result + condition.hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return getAsString();
     }
