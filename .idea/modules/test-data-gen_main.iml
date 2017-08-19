@@ -9,5 +9,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: :jpf:" level="project" />
+    <orderEntry type="library" name="Gradle: :jpf-annotations:" level="project" />
+    <orderEntry type="library" name="Gradle: :jpf-classes:" level="project" />
+    <orderEntry type="library" name="Gradle: :jpf-symbc:" level="project" />
+    <orderEntry type="library" name="Gradle: :jpf-symbc-annotations:" level="project" />
+    <orderEntry type="library" name="Gradle: :jpf-symbc-classes:" level="project" />
   </component>
 </module>
