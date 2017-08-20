@@ -34,8 +34,6 @@ public class RunningExamples {
         jpf.run();
 
         ConcurrentMap<Method, Set<IPathCondition>> conditions = pathConditionListener.getConditions();
-        System.out.println("%%%%%" + conditions);
-
         Optional<Method> testedMethod = conditions
                 .keySet()
                 .stream()
@@ -49,7 +47,8 @@ public class RunningExamples {
         TestDataGenerator testDataGenerator = new TestDataGenerator();
         List<TestData> testData = testDataGenerator.processMethod(conditions.getOrDefault(testedMethod.get(), Collections.emptySet()));
 
-        System.out.println("$$$$$$$$$$$$$$ " + testData);
+        System.out.println("---------------------------------------------");
+        System.out.println(testData);
     }
 
 //    private static void runWithRunner() throws URISyntaxException {
