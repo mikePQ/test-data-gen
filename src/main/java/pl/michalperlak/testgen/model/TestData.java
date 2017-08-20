@@ -29,8 +29,7 @@ public class TestData {
         return result;
     }
 
-    @Override
-    public String toString() {
+    public String prettyPrint() {
         StringBuilder sb = new StringBuilder();
         sb.append(method.getShortName());
         sb.append(" : ");
@@ -53,6 +52,25 @@ public class TestData {
         }
         sb.append(")");
 
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ ");
+        Iterator<String> iterator = values
+                .values()
+                .iterator();
+        while (iterator.hasNext()) {
+            String value = iterator.next();
+            sb.append(value);
+
+            if (iterator.hasNext()) {
+                sb.append(", ");
+            }
+        }
+        sb.append(" }");
         return sb.toString();
     }
 }

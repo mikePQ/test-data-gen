@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class TestPathsTest {
     @Parameterized.Parameters
     public static Iterable<Object[]> data() {
-        return Arrays.asList(new Object[][] {{0, false}});
+        return Arrays.asList(new Object[][]{{2501, false}, {-2147483648, false}, {-2147483648, true}, {1200, true}, {1201, true}, {2500, true}});
     }
 
     private int x;
